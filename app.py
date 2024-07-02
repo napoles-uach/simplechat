@@ -41,7 +41,7 @@ if st.button("Fetch and Evaluate"):
         file_content = fetch_github_file(repo, file_path, branch)
         if file_content:
             st.code(file_content, language='python')
-            result = openq(file_content)
+            result = openq("Hola")#(file_content)
             st.write("Proficiency Level:", result)
         else:
             st.write("Failed to fetch the file from GitHub. Please check the repository and file path.")
