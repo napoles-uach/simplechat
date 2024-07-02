@@ -1,0 +1,29 @@
+import streamlit as st
+import openai
+
+# OpenAI API key from Streamlit secrets
+openai.api_key = st.secrets["gpt_key"]
+
+def openq(prompt_script):
+    completion = openai.ChatCompletion.create(
+        # model="gpt-3.5-turbo-0125",
+        # model="gpt-4-turbo-2024-04-09",
+        model="gpt-4o",
+        # model="gpt-3.5-turbo-1106",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": f"Evaluate the following answers to determine the English proficiency level (Beginner, Intermediate, Advanced):\n{prompt_script}\nProvide the overall proficiency level:"}
+        ],
+        max_tokens=1000
+    )
+    return completion.choices[0].message.content
+
+# Example usage in Streamlit
+st.title("English Proficiency Evaluation")
+prompt_script = st.text_area("Enter the answers to evaluate:")
+if st.button("Evaluate"):
+    if prompt_script:
+        result = openq(prompt_script)
+        st.write("Proficiency Level:", result)
+    else:
+        st.write("Please enter the answers to evaluate.")
