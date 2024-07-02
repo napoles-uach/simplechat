@@ -2,7 +2,7 @@ import streamlit as st
 import openai
 
 # OpenAI API key from Streamlit secrets
-openai.api_key = st.secrets["gpt_key"]
+openai.api_key = st.secrets["simple"]
 
 def openq(prompt_script):
     completion = openai.ChatCompletion.create(
